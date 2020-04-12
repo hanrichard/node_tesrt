@@ -14,12 +14,10 @@ router.post("/", [
   check('password', 'password is rquired').isLength({min:6})
   ], 
   async (req, res)=> {
-  console.log(req.body)
   const errors = validationResult(req);
   if(!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array()})
   }
-
 
   const { name, email, password } = req.body
 
@@ -68,8 +66,6 @@ router.post("/", [
     console.error(err.message);
     res.status(500).send('server error')
   }
-
-  
 })
 
 
