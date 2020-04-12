@@ -8,7 +8,8 @@ router.post("/", [
   check('name', 'name is rquired').not().isEmpty(),
   check('email', 'email is rquired').isEmail(),
   check('password', 'password is rquired').isLength({min:6})
-  ], (req, res)=> {
+  ], 
+  async (req, res)=> {
   console.log(req.body)
   const errors = validationResult(req);
   if(!errors.isEmpty()) {
@@ -18,7 +19,16 @@ router.post("/", [
 
   const { name, email, password } = req.body
 
-  res.send("uer router")
+  try {
+
+
+    res.send("uer router")
+  } catch(err) {
+    console.error(err.message);
+    res.status(500)
+  }
+
+  
 })
 
 
