@@ -26,38 +26,77 @@ router.get('/me', auth, async (req, res) => {
   }
 })
 
-
-router.post('/', [auth, [
-  check('status', 'status is required').not().isEmpty(),
-  check('skills', 'skills is required').not().isEmpty()
-  ]], 
+// @route    POST api/profile
+// @desc     Create or update user profile
+// @access   Private
+router.post(
+  '/',
+  [
+    auth,
+    [
+      check('status', 'Status is required')
+        .not()
+        .isEmpty(),
+      check('skills', 'Skills is required')
+        .not()
+        .isEmpty()
+    ]
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
     const {
       company,
-      location,
-      website,
-      bio,
       skills,
       status,
-      githubusername,
-      youtube,
-      twitter,
-      instagram,
-      linkedin,
-      facebook
+      
     } = req.body;
 
+    const profileFields = {
+      user: req.user.id,
+      company,
+      skills,
+      status,
+    };
 
+    // Build social object and add to profileFields
+    // const socialfields = { youtube, twitter, instagram, linkedin, facebook };
 
-})
+    // for (const [key, value] of Object.entries(socialfields)) {
+    //   if (value.length > 0)
+    //     socialfields[key] = normalize(value, { forceHttps: true });
+    // }
+    // profileFields.social = socialfields;
 
+    try {
+      // Using upsert option (creates new doc if no match is found):
 
+      let profile = await Profile.findOne({ user: req.user.id})
 
+      if(profile) {
+        profile = await Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFields },
+          { new: true, upsert: true }
+        );
+
+        return res.json(profile);
+      }
+
+      profile = new Profile(profileFields)
+
+      await profile.save()
+
+      res.json(profile)
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 
 
