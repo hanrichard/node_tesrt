@@ -99,6 +99,39 @@ router.post(
 );
 
 
+router.get('/', async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate('user', ['name', 'avatar'])
+
+    res.json(profiles);
+
+  } catch(err) {
+    console.error(error);
+    return res.status(500).json({ msg: 'Server error' });
+  }
+})
+
+router.get('/user/:user_id', async (req, res) => {
+  try {
+    const profile = await Profile.findOne({user: req.params.user_id}).populate('user', ['name', 'avatar'])
+    if(!profile) {
+      return res.status(400).json({
+        msg: 'there is no profile'
+      });
+    }
+    res.json(profile);
+
+  } catch(err) {
+    console.error(err);
+    if (err.kind === 'ObjectId') {
+      return res.status(400).json({
+        msg: 'there is no profile'
+      });
+    }
+    return res.status(500).json({ msg: 'Server error' });
+  }
+})
+
 
 // // @route    GET api/profile/me
 // // @desc     Get current users profile
