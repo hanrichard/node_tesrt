@@ -77,6 +77,61 @@ router.get('/:id', auth, async (req, res) => {
 
 
 
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ msg: 'Post not found' });
+    }
+        // Check for ObjectId format and post
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authreisd' });
+    }
+
+    await post.remove;
+    res.json({ msg: 'removed' });
+
+    res.json(post);
+  } catch (err) {
+        console.error(err.message);
+            // Check for ObjectId format and post
+      if (!err.kind === "ObjectId") {
+        return res.status(404).json({ msg: 'Post not found' });
+      }
+        res.status(500).send('Server Error');
+  }
+})
+
+
+
+
+router.put('/like/:id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ msg: 'Post not found' });
+    }
+        // Check for ObjectId format and post
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authreisd' });
+    }
+
+    await post.remove;
+    res.json({ msg: 'removed' });
+
+    res.json(post);
+  } catch (err) {
+        console.error(err.message);
+            // Check for ObjectId format and post
+      if (!err.kind === "ObjectId") {
+        return res.status(404).json({ msg: 'Post not found' });
+      }
+        res.status(500).send('Server Error');
+  }
+})
+
 // // @route    GET api/posts
 // // @desc     Get all posts
 // // @access   Private
