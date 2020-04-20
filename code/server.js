@@ -29,12 +29,21 @@ app.use('/api/posts', require('./routes/api/posts'));
 //   app.get('/', (req, res) => res.send("api runnint"));
 // }
 
-app.get('/', (req, res) => res.send("api running"));
+// app.get('/', (req, res) => res.send("api running"));
+
+
+app.get('/', (req, res) => {
+ res.sendFile(__dirname + '/index.html');
+});
+
+
 
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
 const io = require('socket.io')(server)
 io.on('connection', socket => {
   console.log('client connected')
 })
+
