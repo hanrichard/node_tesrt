@@ -49,7 +49,7 @@ router.get('/', auth, async (req, res) => {
   try {
     // const posts = await Post.find();
     const totalNumber = await Post.find().countDocuments();
-    const posts = await Post.find().skip(1).limit(2)
+    const posts = await Post.find().sort({ date: 1 }).skip(1).limit(2)
 
     res.json(posts)
   } catch (err) {
