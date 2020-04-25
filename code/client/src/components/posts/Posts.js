@@ -15,10 +15,13 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
   }, [getPosts]);
 
   socket.on('posts', data => {
-    console.log("xxxx", data)
     if(data.action= "create") {
-      console.log("this is action")
-    }
+      console.log("this create")
+      getPosts()
+    } else if(data.action= "delete") {
+      console.log("this delete")
+      getPosts()
+    } 
   })
 
   return loading ? (
