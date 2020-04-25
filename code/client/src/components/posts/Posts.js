@@ -16,10 +16,8 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 
   socket.on('posts', data => {
     if(data.action= "create") {
-      console.log("this create")
       getPosts()
     } else if(data.action= "delete") {
-      console.log("this delete")
       getPosts()
     } 
   })
