@@ -5,11 +5,21 @@ import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 import { getPosts } from '../../actions/post';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:5000');
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
+
+  socket.on('posts', data => {
+    console.log("xxxx", data)
+    if(data.action= "create") {
+      console.log("this is action")
+    }
+  })
 
   return loading ? (
     <Spinner />
@@ -20,11 +30,13 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         <i className='fas fa-user' /> Welcome to the community
       </p>
       <PostForm />
+      <div>this is posts</div>
       <div className='posts'>
         {posts.map(post => (
           <PostItem key={post._id} post={post} />
         ))}
       </div>
+      <div>this is posts</div>
     </Fragment>
   );
 };
