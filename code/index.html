@@ -56,6 +56,7 @@
 <script>
     $(function() {
         var socket = io.connect();
+
         var $messageForm = $('#messageForm');
         var $message = $('#message');
         var $chat = $('#chat');
@@ -86,8 +87,21 @@
             $username.val('');
         });
 
+        socket.on('post', function(data) {
+            var html = '';
+            console.log(data)
+            if(data.posts && data.posts.length && data.posts.length>0) {
+              for(i = 0; i<data.posts.length;i++){
+                  html += '<li class="list-group-item">'+data.posts[i].date+'</li>';
+              }
+              $users.html(html);
+            }
+        })
+
+        
         socket.on('get users', function(data) {
             var html = '';
+            
             for(i = 0; i<data.length;i++){
                 html += '<li class="list-group-item">'+data[i]+'</li>';
 

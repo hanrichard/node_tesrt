@@ -5,6 +5,8 @@ const auth = require('../../middleware/auth');
 
 const Post = require('../../models/Post');
 const User = require('../../models/User');
+const io = require('../../socket')
+
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -50,6 +52,10 @@ router.get('/', auth, async (req, res) => {
     // const posts = await Post.find();
     const totalNumber = await Post.find().countDocuments();
     const posts = await Post.find().sort({ date: 1 }).skip(1).limit(2);
+
+    io.getIO().emit('post', { posts: posts })
+
+
     res.json(posts)
   } catch (err) {
     console.error(err.message);

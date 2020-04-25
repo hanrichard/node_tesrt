@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-const io = require('socket.io')(server)
+const io = require('./socket').init(server)
 
 users = [];
 connections = [];
@@ -67,7 +67,7 @@ io.on('connection', function(socket){
   });
 
   function updateUsernames() {
-      io.sockets.emit('get users', users);
+      io.sockets.emit('post', users);
   }
 });
 
