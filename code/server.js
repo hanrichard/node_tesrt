@@ -42,6 +42,13 @@ users = [];
 connections = [];
 
 io.on('connection', function(socket){
+  console.log("socket id", socket.id)
+  console.log("socket", socket)
+
+  io.emit(socket.id, "this is test")
+
+  io.to(socket.id).emit('hey', 'I just met you');
+
   connections.push(socket);
   console.log('Connected: %s sockets connected', connections.length);
 

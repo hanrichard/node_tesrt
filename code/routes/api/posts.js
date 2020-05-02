@@ -39,6 +39,8 @@ router.post(
 
       const post = await newPost.save();
 
+      io.getIO().emit('posts', { action: "create", post: post })
+
       res.json(post);
     } catch (err) {
       console.error(err.message);
@@ -51,9 +53,10 @@ router.get('/', auth, async (req, res) => {
   try {
     // const posts = await Post.find();
     const totalNumber = await Post.find().countDocuments();
-    const posts = await Post.find().sort({ date: 1 }).skip(1).limit(2);
+    // const posts = await Post.find().sort({ date: 1 }).skip(1).limit(2);
+    const posts = await Post.find().sort({ date: -1 })
 
-    io.getIO().emit('post', { posts: posts })
+    // io.getIO().emit('post', { posts: posts })
 
 
     res.json(posts)
@@ -84,32 +87,58 @@ router.get('/:id', auth, async (req, res) => {
 })
 
 
-
 router.delete('/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
-    if (!post) {
+    // Check for ObjectId format and post
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
       return res.status(404).json({ msg: 'Post not found' });
     }
-        // Check for ObjectId format and post
+
+    // Check user
     if (post.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authreisd' });
+      return res.status(401).json({ msg: 'User not authorized' });
     }
 
-    await post.remove;
-    res.json({ msg: 'removed' });
+    await post.remove();
 
-    res.json(post);
+    io.getIO().emit('posts', { action: "delete", post: post })
+    res.json({ msg: 'Post removed' });
   } catch (err) {
-        console.error(err.message);
-            // Check for ObjectId format and post
-      if (!err.kind === "ObjectId") {
-        return res.status(404).json({ msg: 'Post not found' });
-      }
-        res.status(500).send('Server Error');
+    console.error(err.message);
+
+    res.status(500).send('Server Error');
   }
-})
+});
+
+// router.delete('/:id', auth, async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+
+//     if (!post) {
+//       return res.status(404).json({ msg: 'Post not found' });
+//     }
+//         // Check for ObjectId format and post
+//     if (post.user.toString() !== req.user.id) {
+//       return res.status(401).json({ msg: 'Not authreisd' });
+//     }
+
+//     await post.remove;
+//     res.json({ msg: 'removed' });
+
+//     io.getIO().emit('posts', { action: "delete", post: post })
+
+//     res.json(post);
+//   } catch (err) {
+//         console.error(err.message);
+//             // Check for ObjectId format and post
+//       if (!err.kind === "ObjectId") {
+//         return res.status(404).json({ msg: 'Post not found' });
+//       }
+//         res.status(500).send('Server Error');
+//   }
+// })
 
 
 
