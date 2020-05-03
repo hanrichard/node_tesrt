@@ -15,7 +15,7 @@ const PostItem = ({
 }) => (
   <div className='post bg-white p-1 my-1'>
     <div>
-      <p className>shop name: {text}</p>
+      <p>shop name: {text}</p>
       <p className='post-date'>
         created cafe on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
