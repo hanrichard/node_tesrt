@@ -7,10 +7,11 @@ import { deleteComment } from '../../actions/post';
 
 const CommentItem = ({
   postId,
-  comment: { _id, text, name, avatar, user, date },
+  comment: { _id, text, name, avatar, user, date, review },
   auth,
   deleteComment
-}) => (
+}) => { 
+  return (
   <div className='post bg-white p-1 my-1'>
     <div>
       <Link to={`/profile/${user}`}>
@@ -19,11 +20,13 @@ const CommentItem = ({
       </Link>
     </div>
     <div>
+      <p className='my-1'>{review}</p>
       <p className='my-1'>{text}</p>
       <p className='post-date'>
         Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
-      {!auth.loading && user === auth.user._id && (
+      
+      {auth.isAuthenticated && !auth.loading && user === auth.user._id && (
         <button
           onClick={() => deleteComment(postId, _id)}
           type='button'
@@ -35,6 +38,7 @@ const CommentItem = ({
     </div>
   </div>
 );
+}
 
 CommentItem.propTypes = {
   postId: PropTypes.string.isRequired,

@@ -171,6 +171,9 @@ router.post(
     [
       check('text', 'Text is required')
         .not()
+        .isEmpty(),
+      check('review', 'Text is required')
+        .not()
         .isEmpty()
     ]
   ],
@@ -186,6 +189,7 @@ router.post(
 
       const newComment = {
         text: req.body.text,
+        review: req.body.review,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id

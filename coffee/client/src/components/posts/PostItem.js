@@ -12,7 +12,13 @@ const PostItem = ({
   auth,
   post: { _id, text, name, avatar, user, likes, comments, date },
   showActions
-}) => (
+}) => {
+  const totalReview = comments && comments.reduce((comment, currentValue) => {
+    return comment + Number(currentValue.review)
+  }, 0)
+  const averageReview = (totalReview/comments.length).toFixed(2)
+
+  return (
   <div className='post bg-white p-1 my-1'>
     <div>
       
@@ -21,7 +27,7 @@ const PostItem = ({
         created cafe on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
 
-      <div>average rate:</div>
+      <div>average rate: {averageReview}</div>
       <div>total review number:</div>
 
       <div> 
@@ -66,7 +72,8 @@ const PostItem = ({
       )} */}
     </div>
   </div>
-);
+  )
+}
 
 PostItem.defaultProps = {
   showActions: true

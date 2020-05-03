@@ -5,6 +5,7 @@ import { addComment } from '../../actions/post';
 
 const CommentForm = ({ postId, addComment, auth }) => {
   const [text, setText] = useState('');
+  const [review, setReview] = useState('');
 
   return auth.isAuthenticated && (
     <div className='post-form'>
@@ -15,11 +16,19 @@ const CommentForm = ({ postId, addComment, auth }) => {
         className='form my-1'
         onSubmit={e => {
           e.preventDefault();
-          addComment(postId, { text });
+          addComment(postId, { text, review });
           setText('');
+          setReview('');
         }}
       >
-        <input type='number' name='review' required placeholder='review'/>
+        <input 
+          type='number' 
+          name='review' 
+          value={review} 
+          required 
+          placeholder='review'
+          onChange={e => setReview(e.target.value)}
+          />
         <textarea
           name='text'
           cols='30'
