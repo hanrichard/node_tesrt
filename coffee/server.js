@@ -14,7 +14,7 @@ app.use(express.json());
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
-app.use('/api/cafes', require('./routes/api/cafes'));
+app.use('/api/coffees', require('./routes/api/coffees'));
 // app.use((req, res)=> {
 //   res.statusCode(404).send(<h1>page not found</h1>)
 // })

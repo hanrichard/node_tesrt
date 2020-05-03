@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
-const Cafe = require('../../models/Cafe');
+const Coffee = require('../../models/Coffee');
 const User = require('../../models/User');
 
 // @route    POST api/posts
@@ -28,16 +28,17 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
 
-      const newCafe = new Cafe({
+      const nnnnewCoffee = new Coffee({
         text: req.body.text,
-        name: user.name,
+        address: req.body.address,
+        name: req.body.name,
         avatar: user.avatar,
         user: req.user.id
       });
 
-      const cafe = await newCafe.save();
+      const coffee = await nnnnewCoffee.save();
 
-      res.json(cafe);
+      res.json(coffee);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -45,12 +46,13 @@ router.post(
   }
 );
 
+
 // @route    GET api/posts
 // @desc     Get all posts
 // @access   Private
 router.get('/', async (req, res) => {
   try {
-    const posts = await Cafe.find().sort({ date: -1 });
+    const posts = await Coffee.find().sort({ date: -1 });
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -63,11 +65,11 @@ router.get('/', async (req, res) => {
 // @access   Private
 router.get('/:id', async (req, res) => {
   try {
-    const post = await Cafe.findById(req.params.id);
+    const post = await Coffee.findById(req.params.id);
 
     // Check for ObjectId format and post
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
-      return res.status(404).json({ msg: 'Cafe not found' });
+      return res.status(404).json({ msg: 'Coffee not found' });
     }
 
     res.json(post);
@@ -83,11 +85,11 @@ router.get('/:id', async (req, res) => {
 // @access   Private
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const post = await Cafe.findById(req.params.id);
+    const post = await Coffee.findById(req.params.id);
 
     // Check for ObjectId format and post
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
-      return res.status(404).json({ msg: 'Cafe not found' });
+      return res.status(404).json({ msg: 'Coffee not found' });
     }
 
     // Check user
@@ -97,7 +99,7 @@ router.delete('/:id', auth, async (req, res) => {
 
     await post.remove();
 
-    res.json({ msg: 'Cafe removed' });
+    res.json({ msg: 'Coffee removed' });
   } catch (err) {
     console.error(err.message);
 
@@ -110,13 +112,13 @@ router.delete('/:id', auth, async (req, res) => {
 // @access   Private
 router.put('/like/:id', auth, async (req, res) => {
   try {
-    const post = await Cafe.findById(req.params.id);
+    const post = await Coffee.findById(req.params.id);
 
     // Check if the post has already been liked
     if (
       post.likes.filter(like => like.user.toString() === req.user.id).length > 0
     ) {
-      return res.status(400).json({ msg: 'Cafe already liked' });
+      return res.status(400).json({ msg: 'Coffee already liked' });
     }
 
     post.likes.unshift({ user: req.user.id });
@@ -135,14 +137,14 @@ router.put('/like/:id', auth, async (req, res) => {
 // @access   Private
 router.put('/unlike/:id', auth, async (req, res) => {
   try {
-    const post = await Cafe.findById(req.params.id);
+    const post = await Coffee.findById(req.params.id);
 
     // Check if the post has already been liked
     if (
       post.likes.filter(like => like.user.toString() === req.user.id).length ===
       0
     ) {
-      return res.status(400).json({ msg: 'Cafe has not yet been liked' });
+      return res.status(400).json({ msg: 'Coffee has not yet been liked' });
     }
 
     // Get remove index
@@ -185,7 +187,7 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select('-password');
-      const post = await Cafe.findById(req.params.id);
+      const post = await Coffee.findById(req.params.id);
 
       const newComment = {
         text: req.body.text,
@@ -212,7 +214,7 @@ router.post(
 // @access   Private
 router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
   try {
-    const post = await Cafe.findById(req.params.id);
+    const post = await Coffee.findById(req.params.id);
 
     // Pull out comment
     const comment = post.comments.find(

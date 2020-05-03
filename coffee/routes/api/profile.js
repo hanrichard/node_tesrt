@@ -9,7 +9,7 @@ const normalize = require('normalize-url');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
-const Post = require('../../models/Post');
+const Coffee = require('../../models/Coffee');
 
 // @route    GET api/profile/me
 // @desc     Get current users profile
