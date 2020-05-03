@@ -7,7 +7,7 @@ const Cafe = require('../../models/Cafe');
 const User = require('../../models/User');
 
 // @route    POST api/posts
-// @desc     Create a post
+// @desc     Create a cafe
 // @access   Private
 router.post(
   '/',
@@ -35,9 +35,9 @@ router.post(
         user: req.user.id
       });
 
-      const post = await newCafe.save();
+      const cafe = await newCafe.save();
 
-      res.json(post);
+      res.json(cafe);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

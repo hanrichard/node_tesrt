@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPost } from '../../actions/post';
 
-const PostForm = ({ addPost }) => {
+const PostForm = ({ addPost, auth }) => {
   const [text, setText] = useState('');
-
-  return (
+  
+  return auth.isAuthenticated && (
     <div className='post-form'>
       <div className='bg-primary p'>
         <h3>Say Something...</h3>
@@ -38,7 +38,11 @@ PostForm.propTypes = {
   addPost: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { addPost }
 )(PostForm);

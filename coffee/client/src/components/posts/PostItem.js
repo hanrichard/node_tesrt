@@ -26,7 +26,7 @@ const PostItem = ({
         Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
 
-      {showActions && (
+      {/* {showActions && (
         <Fragment>
           <button
             onClick={() => addLike(_id)}
@@ -59,7 +59,7 @@ const PostItem = ({
             </button>
           )}
         </Fragment>
-      )}
+      )} */}
     </div>
   </div>
 );

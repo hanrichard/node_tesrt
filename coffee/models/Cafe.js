@@ -16,9 +16,6 @@ const CafeSchema = new Schema({
   address: {
     type: String
   },
-  avatar: {
-    type: String
-  },
   comments: [
     {
       user: {
