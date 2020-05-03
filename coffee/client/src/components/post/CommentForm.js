@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addComment } from '../../actions/post';
 
-const CommentForm = ({ postId, addComment }) => {
+const CommentForm = ({ postId, addComment, auth }) => {
   const [text, setText] = useState('');
 
-  return (
+  return auth.isAuthenticated && (
     <div className='post-form'>
       <div className='bg-primary p'>
-        <h3>Leave a Comment</h3>
+        <h3>Leave a review</h3>
       </div>
       <form
         className='form my-1'
@@ -38,7 +38,11 @@ CommentForm.propTypes = {
   addComment: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { addComment }
 )(CommentForm);

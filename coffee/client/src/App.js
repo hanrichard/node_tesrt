@@ -14,8 +14,8 @@ import './App.css';
 
 const App = () => {
   useEffect(() => {
-    // setAuthToken(localStorage.token);
-    // store.dispatch(loadUser());
+    setAuthToken(localStorage.token);
+    store.dispatch(loadUser());
   }, []);
 
   return (
