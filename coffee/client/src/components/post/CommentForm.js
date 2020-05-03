@@ -19,6 +19,7 @@ const CommentForm = ({ postId, addComment, auth }) => {
           setText('');
         }}
       >
+        <input type='number' name='review' required placeholder='review'/>
         <textarea
           name='text'
           cols='30'
