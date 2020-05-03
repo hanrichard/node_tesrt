@@ -15,7 +15,6 @@ import {
 export const getPosts = () => async dispatch => {
   try {
     const res = await axios.get('/api/cafes');
-    console.log('xxx', res)
 
     dispatch({
       type: GET_POSTS,
