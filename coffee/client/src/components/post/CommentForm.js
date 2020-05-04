@@ -10,7 +10,7 @@ const CommentForm = ({ postId, addComment, auth }) => {
   return auth.isAuthenticated && (
     <div className='post-form'>
       <div className='bg-primary p'>
-        <h3>Leave a review</h3>
+        <h3>Leave a coffee review</h3>
       </div>
       <form
         className='form my-1'

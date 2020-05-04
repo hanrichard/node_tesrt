@@ -52,7 +52,7 @@ router.post(
 // @access   Private
 router.get('/', async (req, res) => {
   try {
-    const posts = await Coffee.find().sort({ date: -1 });
+    const posts = await Coffee.find().sort({ averageReview: -1 });
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -72,7 +72,11 @@ router.get('/:id', async (req, res) => {
 
     const totalReview = coffee.comments && coffee.comments.length
     const averageReview = (totalReviewNumber/totalReview).toFixed(2)
+
+    console.log(totalReview)
+
     coffee['averageReview'] = coffee.comments ? averageReview : 0;
+    coffee['totalReview'] = coffee.comments ? totalReview : 0;
 
 
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !coffee) {

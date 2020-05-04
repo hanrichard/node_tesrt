@@ -19,6 +19,9 @@ const CoffeeSchema = new Schema({
   averageReview: {
     type: String
   },
+  totalReview: {
+    type: String
+  },
   comments: [
     {
       user: {
