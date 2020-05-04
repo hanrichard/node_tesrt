@@ -73,8 +73,6 @@ router.get('/:id', async (req, res) => {
     const totalReview = coffee.comments && coffee.comments.length
     const averageReview = (totalReviewNumber/totalReview).toFixed(2)
 
-    console.log(totalReview)
-
     coffee['averageReview'] = coffee.comments ? averageReview : 0;
     coffee['totalReview'] = coffee.comments ? totalReview : 0;
 
@@ -212,10 +210,7 @@ router.post(
       };
 
       coffee.comments.unshift(newComment);
-      // coffee['averageReview'] = averageReview;
-
-      console.log("xxx", coffee)
-
+      
       await coffee.save();
 
       res.json(coffee.comments);
