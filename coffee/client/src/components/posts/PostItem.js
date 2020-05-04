@@ -10,16 +10,10 @@ const PostItem = ({
   // // removeLike,
   // deletePost,
   auth,
-  post: { _id, text, name, avatar, user, likes, comments, date },
+  post: { _id, text, name, avatar, user, likes, comments, date, averageReview},
   showActions
 }) => {
-  const totalReview = comments && comments.reduce((comment, currentValue) => {
-    return comment + Number(currentValue.review)
-  }, 0)
-
-  console.log("xxx", comments)
-  const averageReview = (totalReview/comments.length).toFixed(2)
-
+  console.log("xxx", averageReview)
   return (
   <div className='post bg-white p-1 my-1'>
     <div>
