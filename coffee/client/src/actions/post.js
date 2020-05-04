@@ -91,7 +91,6 @@ export const addPost = formData => async dispatch => {
 
   try {
     const res = await axios.post('/api/coffees', formData, config);
-    console.log('xxx add post', res)
 
     dispatch({
       type: ADD_POST,

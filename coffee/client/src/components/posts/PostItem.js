@@ -13,7 +13,6 @@ const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date, averageReview, totalReview},
   showActions
 }) => {
-  console.log("xxx", totalReview)
   return (
   <div className='post bg-white p-1 my-1'>
     <div>
@@ -25,8 +24,6 @@ const PostItem = ({
 
       <div>average rate: {averageReview}</div>
       <div>total review number: {totalReview}</div>
-
-   
 
       {/* {showActions && (
         <Fragment>
