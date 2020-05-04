@@ -65,16 +65,13 @@ router.get('/', async (req, res) => {
 // @access   Private
 router.get('/:id', async (req, res) => {
   try {
-    const post = await Coffee.findById(req.params.id);
-
-    console.log("post.comments", post.comments)
-
-    // Check for ObjectId format and post
-    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
+    const coffee = await Coffee.findById(req.params.id);
+   
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !coffee) {
       return res.status(404).json({ msg: 'Coffee not found' });
     }
 
-    res.json(post);
+    res.json(coffee);
   } catch (err) {
     console.error(err.message);
 
@@ -189,7 +186,14 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select('-password');
-      const post = await Coffee.findById(req.params.id);
+      const coffee = await Coffee.findById(req.params.id);
+
+      const totalReviewNumber = coffee.comments && coffee.comments.reduce((comment, currentValue) => {
+        return comment + Number(currentValue.review)
+      }, 0) 
+  
+      const totalReview = coffee.comments && coffee.comments.length
+      const averageReview = (totalReviewNumber/totalReview).toFixed(2)
 
       const newComment = {
         text: req.body.text,
@@ -199,11 +203,12 @@ router.post(
         user: req.user.id
       };
 
-      post.comments.unshift(newComment);
+      coffee.comments.unshift(newComment);
+      coffee.averageReview = averageReview;
 
-      await post.save();
+      await coffee.save();
 
-      res.json(post.comments);
+      res.json(coffee.comments);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

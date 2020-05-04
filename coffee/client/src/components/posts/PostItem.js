@@ -16,6 +16,8 @@ const PostItem = ({
   const totalReview = comments && comments.reduce((comment, currentValue) => {
     return comment + Number(currentValue.review)
   }, 0)
+
+  console.log("xxx", comments)
   const averageReview = (totalReview/comments.length).toFixed(2)
 
   return (
