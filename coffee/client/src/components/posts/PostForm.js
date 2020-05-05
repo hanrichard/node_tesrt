@@ -5,8 +5,9 @@ import { addPost } from '../../actions/post';
 
 const PostForm = ({ addPost, auth }) => {
   const [text, setText] = useState('');
-  
-  return auth.isAuthenticated && (
+  const admin = auth.user && auth.user.email === 'admin@admin.com';
+
+  return auth.isAuthenticated && admin && (
     <div className='post-form'>
       <div className='bg-primary p'>
         <h3>add coffee shop</h3>
