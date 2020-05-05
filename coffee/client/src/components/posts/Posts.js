@@ -20,6 +20,8 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         Welcome to the coffee review
       </p>
       <PostForm />
+      
+      <select><option value="highest-rate">by highest rate</option></select>
       <div className='posts'>
         {posts.map(post => (
           <PostItem key={post._id} post={post} />

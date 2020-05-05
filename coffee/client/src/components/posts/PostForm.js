@@ -24,6 +24,7 @@ const PostForm = ({ addPost, auth }) => {
           setAddress('');
         }}
       >
+
         <input 
           type='text' 
           name='address' 

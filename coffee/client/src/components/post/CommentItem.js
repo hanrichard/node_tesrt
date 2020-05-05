@@ -20,8 +20,8 @@ const CommentItem = ({
       </Link>
     </div>
     <div>
-      <p className='my-1'>{review}</p>
-      <p className='my-1'>{text}</p>
+      <p className='my-1'><b>Rate: </b> {review}</p>
+      <p className='my-1'><b>Review: </b> {text}</p>
       <p className='post-date'>
         Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
