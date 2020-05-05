@@ -461,13 +461,13 @@ button {
 
 .post {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 2fr 2fr;
   grid-gap: 2rem;
-  align-items: center;
+  align-items: left;
 }
 
 .post > div:first-child {
-  text-align: center;
+  text-align: left;
 }
 
 .post img {

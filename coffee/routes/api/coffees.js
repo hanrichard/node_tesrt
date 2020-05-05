@@ -31,6 +31,7 @@ router.post(
       const nnnnewCoffee = new Coffee({
         text: req.body.text,
         address: req.body.address,
+        suburb: req.body.suburb,
         name: req.body.name,
         avatar: user.avatar,
         user: req.user.id
@@ -210,7 +211,7 @@ router.post(
       };
 
       coffee.comments.unshift(newComment);
-      
+
       await coffee.save();
 
       res.json(coffee.comments);

@@ -10,20 +10,25 @@ const PostItem = ({
   // // removeLike,
   // deletePost,
   auth,
-  post: { _id, text, name, avatar, user, likes, comments, date, averageReview, totalReview},
+  post: { _id, text, name, avatar, user, likes, comments, date, averageReview, totalReview, address, suburb},
   showActions
 }) => {
+
+  const hasValue = el => {
+    return el = el ? el: "no value yet"
+  }
   return (
   <div className='post bg-white p-1 my-1'>
     <div>
-      
       <p>shop name: <Link to={`/shops/${_id}`}> {text}</Link></p>
       <p className='post-date'>
         created cafe on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
 
-      <div>average rate: {averageReview}</div>
-      <div>total review number: {totalReview}</div>
+      <div><b>average rate:</b> {hasValue(averageReview)}</div>
+      <div><b>total review number:</b> {hasValue(totalReview)}</div>
+      <div><b>address:</b> {hasValue(address)}</div>
+      <div><b>suburb:</b> {hasValue(suburb)}</div>
     </div>
   </div>
   )

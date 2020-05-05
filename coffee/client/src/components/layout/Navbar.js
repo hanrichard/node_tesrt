@@ -8,9 +8,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <ul>
       <li>
-        <Link to='/shops'>Shops</Link>
-      </li>
-      <li>
         <Link to='/dashboard'>
           <i className='fas fa-user' />{' '}
           <span className='hide-sm'>Dashboard</span>
@@ -28,9 +25,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to='/shops'>shops</Link>
-      </li>
-      <li>
         <Link to='/register'>Register</Link>
       </li>
       <li>
@@ -47,7 +41,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </h1>
       {!loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+        <Fragment>
+          <ul>
+            <li>
+              <Link to='/shops'>Shops</Link>
+            </li>
+          </ul>
+          {isAuthenticated ? authLinks : guestLinks}
+        </Fragment>
       )}
     </nav>
   );

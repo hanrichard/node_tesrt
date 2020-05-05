@@ -16,6 +16,9 @@ const CoffeeSchema = new Schema({
   address: {
     type: String
   },
+  suburb: {
+    type: String
+  },
   averageReview: {
     type: String
   },
