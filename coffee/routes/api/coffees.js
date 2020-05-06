@@ -53,8 +53,8 @@ router.post(
 // @access   Private
 router.get('/', async (req, res) => {
   let sortby = req.query.sortby;
+  const sort = sortby === "highest" ? "-1": "1";
 
-  const sort = sortby === "highest" ? "-1": "1"
   try {
     const posts = await Coffee.find().sort({ averageReview: sort });
     res.json(posts);
