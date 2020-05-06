@@ -27,6 +27,8 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       <select onChange={handleChange} value={sortValue}>
           <option value="highest">highest rate</option>
           <option value="loweset">loweset rate</option>
+          <option value="most">most reivew</option>
+          <option value="least">least review</option>
         </select>
       <div className='posts'>
         {posts.map(post => (
