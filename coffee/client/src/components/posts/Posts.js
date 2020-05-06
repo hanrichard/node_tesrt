@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
@@ -7,9 +7,13 @@ import PostForm from './PostForm';
 import { getPosts } from '../../actions/post';
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
+  const [sortValue, setSortValue] = useState("highest")
+  const handleChange = (e) => {
+    setSortValue(e.target.value)
+  }
   useEffect(() => {
     getPosts();
-  }, [getPosts]);
+  }, [getPosts, sortValue]);
 
   return loading ? (
     <Spinner />
@@ -20,8 +24,10 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         Welcome to the coffee review
       </p>
       <PostForm />
-      
-      <select><option value="highest-rate">by highest rate</option></select>
+      <select onChange={handleChange} value={sortValue}>
+          <option value="highest">highest rate</option>
+          <option value="loweset">loweset rate</option>
+        </select>
       <div className='posts'>
         {posts.map(post => (
           <PostItem key={post._id} post={post} />
