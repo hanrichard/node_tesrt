@@ -12,7 +12,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     setSortValue(e.target.value)
   }
   useEffect(() => {
-    getPosts();
+    getPosts(sortValue);
   }, [getPosts, sortValue]);
 
   return loading ? (

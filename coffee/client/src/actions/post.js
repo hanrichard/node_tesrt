@@ -12,9 +12,9 @@ import {
 } from './types';
 
 // Get coffees
-export const getPosts = () => async dispatch => {
+export const getPosts = (sortby) => async dispatch => {
   try {
-    const res = await axios.get('/api/coffees');
+    const res = await axios.get('/api/coffees?sortby='+ sortby);
 
     dispatch({
       type: GET_POSTS,
