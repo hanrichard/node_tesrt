@@ -8,7 +8,7 @@ const PostForm = ({ addPost, auth }) => {
   const [address, setAddress] = useState('');
   const [suburb, setSuburb] = useState('');
 
-  const isAdmin = auth.user && auth.user.email === 'admin@admin.com';
+  const isAdmin = auth.user && auth.user.isAdmin;
 
   return auth.isAuthenticated && isAdmin && (
     <div className='post-form'>
