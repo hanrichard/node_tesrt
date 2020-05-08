@@ -10,7 +10,7 @@ const PostItem = ({
   // // removeLike,
   // deletePost,
   auth,
-  post: { _id, text, name, avatar, user, likes, comments, date, averageReview, totalReview, address, suburb},
+  post: { _id, text, date, averageReview, totalReview, address, suburb},
   showActions
 }) => {
 
