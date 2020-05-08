@@ -53,14 +53,12 @@ router.post(
 // @access   Private
 router.get('/', async (req, res) => {
   let sortby = req.query.sortby;
-
   const label = {
     highest: 'averageReview',
     loweset: 'averageReview',
     most: 'totalReview',
     least: 'totalReview'
   }
-
   const labelValue = {
     highest: '-1',
     loweset: '1',
@@ -221,7 +219,6 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select('-password');
       const coffee = await Coffee.findById(req.params.id);
-
       
       const newComment = {
         text: req.body.text,
