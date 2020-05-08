@@ -28,7 +28,7 @@ const CommentForm = ({ postId, addComment, auth }) => {
           required 
           placeholder='review'
           onChange={e => setReview(e.target.value)}
-          />
+        />
         <textarea
           name='text'
           cols='30'
