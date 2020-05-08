@@ -99,7 +99,6 @@ router.get('/:id', async (req, res) => {
     coffee['averageReview'] = coffee.comments ? averageReview : 0;
     coffee['totalReview'] = coffee.comments ? totalReview : 0;
 
-
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !coffee) {
       return res.status(404).json({ msg: 'Coffee not found' });
     }
