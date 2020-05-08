@@ -53,26 +53,29 @@ router.post(
 // @access   Private
 router.get('/', async (req, res) => {
   let sortby = req.query.sortby;
-  let sortbyLabel =''
-  let sortValue = ''
 
-  if(sortby === 'highest' || sortby === 'loweset') {
-    sortbyLabel = "averageReview"
-  } else if (sortby === 'most' || sortby === 'least') {
-    sortbyLabel = "totalReview"
-  } 
+  const label = {
+    highest: 'averageReview',
+    loweset: 'averageReview',
+    most: 'totalReview',
+    least: 'totalReview'
+  }
 
-  if(sortby === 'highest' || sortby === 'most') {
-    sortValue = "-1"
-  } else if (sortby === 'loweset' || sortby === 'least') {
-    sortValue = "1"
-  } 
+  const labelValue = {
+    highest: '-1',
+    loweset: '1',
+    most: '-1',
+    least: '1'
+  }
 
-  var obj = {};
-  obj[sortbyLabel] = sortValue;
+  const sortbyLabel = label[sortby]
+  const sortValue = labelValue[sortby]
+
+  var sortbyObj = {};
+  sortbyObj[sortbyLabel] = sortValue;
 
   try {
-    const posts = await Coffee.find().sort(obj);
+    const posts = await Coffee.find().sort(sortbyObj);
     res.json(posts);
   } catch (err) {
     console.error(err.message);
