@@ -74,6 +74,7 @@ router.get('/', async (req, res) => {
 
   try {
     const posts = await Coffee.find().sort(sortbyObj);
+    // const posts = await Post.find().sort({ date: 1 }).skip(1).limit(2);
     res.json(posts);
   } catch (err) {
     console.error(err.message);
